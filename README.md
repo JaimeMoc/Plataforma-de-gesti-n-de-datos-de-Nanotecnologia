@@ -26,26 +26,36 @@ La tercera tabla llamada “propiedades”, estará compuesta por id (“id_prop
 
 ![Flujodedatos](https://github.com/JaimeMoc/Plataforma_de_gestion_de_datos_de_Nanotecnologia/blob/e72407033b7995a9ffbbbf5c1bb187355d5025bd/Diagrama%20.png)
 
-### Ingesta de Datos
-- **Azure Data Factory**: Utiliza Azure Data Factory para orquestar y automatizar la ingesta de datos desde diversas fuentes (bases de datos, APIs, archivos, etc.).
-- **Azure Blob Storage**: Almacena los datos crudos en Azure Blob Storage para un acceso y procesamiento eficiente.
+# Ingesta de Datos (Data Ingestion):
 
-### Procesamiento de Datos
-- **Databricks**: Configura un clúster de Databricks en Azure para el procesamiento de datos. Databricks proporciona un entorno optimizado para Apache Spark.
-- **Apache Spark**: Utiliza Spark para el procesamiento en paralelo de grandes volúmenes de datos. Puedes emplear Spark SQL para consultas estructuradas y Spark MLlib para tareas de machine learning.
+- **Airflow (DAG)** orquesta el proceso de ingesta de datos.
+- **Databricks** es responsable de ingerir y procesar los datos en bruto de archivos como `Materiales.csv`, `Propiedades.csv` y `Condiciones.csv`.
 
-### Almacenamiento de Datos Procesados
-- **Azure Data Lake Storage**: Almacena los datos procesados en Azure Data Lake Storage, que ofrece escalabilidad y seguridad.
-- **Delta Lake**: Implementa Delta Lake sobre Azure Data Lake Storage para garantizar la integridad de los datos y permitir transacciones ACID.
+# Transformación de Datos (Data Transformation):
 
-### Análisis y Modelado
-- **Databricks Notebooks**: Utiliza notebooks en Databricks para que los científicos de datos puedan explorar y analizar los datos de manera interactiva.
-- **Azure Machine Learning**: Integra Azure Machine Learning para desarrollar, entrenar y desplegar modelos predictivos.
+- **Airflow (DAG)** gestiona las tareas de transformación.
+- **Databricks** maneja las transformaciones de datos reales, almacenando los resultados en **Delta Lake** con diferentes niveles:
+  - **Bronze**: Datos en bruto.
+  - **Silver**: Datos limpiados y enriquecidos.
+  - **Gold**: Datos completamente procesados y listos para el análisis.
 
-### Visualización y Reportes
-- **Power BI**: Conecta Power BI a los datos procesados para crear dashboards interactivos y reportes que faciliten la toma de decisiones.
-- **Azure Synapse Analytics**: Utiliza Azure Synapse para análisis avanzados y consultas en tiempo real.
+# Validación y Calidad (Validation and Quality):
 
-### Monitoreo y Mantenimiento
-- **Azure Monitor**: Implementa Azure Monitor para supervisar el rendimiento del pipeline y detectar posibles problemas.
-- **Databricks Jobs**: Programa y automatiza tareas recurrentes en Databricks para mantener el flujo de datos actualizado.
+- **Airflow (DAG)** asegura la calidad de los datos ejecutando tareas de validación.
+
+# Visualización (Visualization):
+
+- **Power BI** genera informes y paneles interactivos a partir de los datos procesados.
+
+# Canalización de ML (ML Pipeline):
+
+- **Airflow (DAG)** orquesta la canalización de aprendizaje automático.
+- **MLFlow** se utiliza para gestionar el ciclo de vida de los modelos de aprendizaje automático.
+
+# Despliegue de Modelos (Model Deployment):
+
+- **Azure Machine Learning Server** es responsable de desplegar los modelos entrenados.
+
+# Gobernanza de Datos (Data Governance):
+
+- **Airflow** gestiona el linaje de datos, la auditoría y la validación para asegurar la gobernanza a lo largo de la canalización.
