@@ -22,3 +22,7 @@ La tercera tabla llamada “propiedades”, estará compuesta por id (“id_prop
 
 ![EBD](Data/EBD.png)
 
+### Flujo de trabajo. 
+
+![Flujodedatos](https://github.com/JaimeMoc/Plataforma_de_gestion_de_datos_de_Nanotecnologia/blob/e72407033b7995a9ffbbbf5c1bb187355d5025bd/Diagrama%20.png)
+
