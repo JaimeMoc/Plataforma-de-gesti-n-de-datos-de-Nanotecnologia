@@ -22,40 +22,10 @@ La tercera tabla llamada “propiedades”, estará compuesta por id (“id_prop
 
 ![EBD](Data/EBD.png)
 
-## Flujo de trabajo. 
+# Arquitectura de datos a emplear. 
 
-![Flujodedatos](https://github.com/JaimeMoc/Plataforma_de_gestion_de_datos_de_Nanotecnologia/blob/e72407033b7995a9ffbbbf5c1bb187355d5025bd/Diagrama%20.png)
+Para este proyecto se planea emplear la arquitectura delta o delta lake, ya que, en este proyecto no se requiere de una respuesta inmediata a eventos en tiempo real. El enfoque principal recae en el procesamiento por lotes para el análisis y el entrenamiento de modelos de machine learning. 
 
-# Ingesta de Datos (Data Ingestion):
-
-- **Airflow (DAG)** orquesta el proceso de ingesta de datos.
-- **Databricks** es responsable de ingerir y procesar los datos en bruto de archivos como `Materiales.csv`, `Propiedades.csv` y `Condiciones.csv`.
-
-# Transformación de Datos (Data Transformation):
-
-- **Airflow (DAG)** gestiona las tareas de transformación.
-- **Databricks** maneja las transformaciones de datos reales, almacenando los resultados en **Delta Lake** con diferentes niveles:
-  - **Bronze**: Datos en bruto.
-  - **Silver**: Datos limpiados y enriquecidos.
-  - **Gold**: Datos completamente procesados y listos para el análisis.
-
-# Validación y Calidad (Validation and Quality):
-
-- **Airflow (DAG)** asegura la calidad de los datos ejecutando tareas de validación.
-
-# Visualización (Visualization):
-
-- **Power BI** genera informes y paneles interactivos a partir de los datos procesados.
-
-# Canalización de ML (ML Pipeline):
-
-- **Airflow (DAG)** orquesta la canalización de aprendizaje automático.
-- **MLFlow** se utiliza para gestionar el ciclo de vida de los modelos de aprendizaje automático.
-
-# Despliegue de Modelos (Model Deployment):
-
-- **Azure Machine Learning Server** es responsable de desplegar los modelos entrenados.
-
-# Gobernanza de Datos (Data Governance):
-
-- **Airflow** gestiona el linaje de datos, la auditoría y la validación para asegurar la gobernanza a lo largo de la canalización.
+Se quiere aprovechar de esta arquitectura las transacciones ACID que nos proporcionan consistencia y confiabilidad de los datos. 
+El poder mejorar el rendimiento de la consultas mediante la implementación de la optimización de los datos y el uso de indices. 
+El poder manejar volumenes de datos considerables y poder aprovechar los datos históricos. 
