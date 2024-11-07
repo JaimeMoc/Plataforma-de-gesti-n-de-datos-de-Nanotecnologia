@@ -29,3 +29,5 @@ Para este proyecto se planea emplear la arquitectura delta o delta lake, ya que,
 Se quiere aprovechar de esta arquitectura las transacciones ACID que nos proporcionan consistencia y confiabilidad de los datos. 
 El poder mejorar el rendimiento de la consultas mediante la implementación de la optimización de los datos y el uso de indices. 
 El poder manejar volumenes de datos considerables y poder aprovechar los datos históricos. 
+
+![PIPELINE](https://github.com/JaimeMoc/Plataforma_de_gestion_de_datos_de_Nanotecnologia/blob/b72ddeebed696fcc0f8773a37f52b3a7a6fdd5fd/Historical%20Data.png)
