@@ -31,3 +31,29 @@ El poder mejorar el rendimiento de la consultas mediante la implementación de l
 El poder manejar volumenes de datos considerables y poder aprovechar los datos históricos. 
 
 ![PIPELINE](https://github.com/JaimeMoc/Plataforma_de_gestion_de_datos_de_Nanotecnologia/blob/b72ddeebed696fcc0f8773a37f52b3a7a6fdd5fd/Historical%20Data.png)
+
+Para este proyecto se planea combinar datos históricos (csv) con datos por streaming. Esta integración permite a los científicos tener una visión completa y actualizada de los experimentos facilitando el análisis.
+
+## Desglose del Pipeline: 
+
+**1.- Ingesta de datos:**
+Para la ingesta de datos se empleó Databricks que permitió manejar tanto datos históricos como datos en tiempo real de manera eficiente. 
+La implementación de datos en streaming se realiza mediante Apache Kafka, que captura datos generados en tiempo real por los experimentos.
+
+**2.- Transformación de datos:**
+Se usó Databricks para limpiar, transformar y preparar los datos tanto históricos como en tiempo real.
+
+**3.- Carga y almacenamiento:**
+Se usa Delta Lake para almacenar datos procesados de manera eficiente y segura.
+
+**4.- Optimización de consultas:**
+Se empleó Databricks para optimizar las consultas y mejorar el rendimiento.
+
+**5.- Visualización de datos:**
+Se usó Power BI para observar los datos obtenidos y asegurar la existencia de posibles relaciones o patrones.
+
+**6.- Análisis y Aprendizaje Automático:**
+Azure ML se utiliza para realizar análisis avanzados y construir modelos de aprendizaje automático.
+
+
+
