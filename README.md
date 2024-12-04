@@ -24,36 +24,22 @@ La tercera tabla llamada “propiedades”, estará compuesta por id (“id_prop
 
 # Arquitectura de datos a emplear. 
 
-Para este proyecto se planea emplear la arquitectura delta o delta lake, ya que, en este proyecto no se requiere de una respuesta inmediata a eventos en tiempo real. El enfoque principal recae en el procesamiento por lotes para el análisis y el entrenamiento de modelos de machine learning. 
+Para este proyecto se planea emplear la arquitectura lambda, ya que, se busca el emplear datos historicos (los datos de experimentos anteriores) así como, los datos en tiempo real, recolectados mediante sensores. 
 
-Se quiere aprovechar de esta arquitectura las transacciones ACID que nos proporcionan consistencia y confiabilidad de los datos. 
-El poder mejorar el rendimiento de la consultas mediante la implementación de la optimización de los datos y el uso de indices. 
-El poder manejar volumenes de datos considerables y poder aprovechar los datos históricos. 
+La arquitectura Lambda combina el procesamiento en Batch así como los datos en tiempo real. Para poder implementarlo, lo dividiremos en tres capas principales: 
 
-![PIPELINE](https://github.com/JaimeMoc/Plataforma_de_gestion_de_datos_de_Nanotecnologia/blob/b72ddeebed696fcc0f8773a37f52b3a7a6fdd5fd/Historical%20Data.png)
+**Capa de ingesta (Batch y Streaming)**
+Batch: Para la ingesta de datos historicos("materiales.csv", "condiciones.csv" y "propiedades.csv"), se cargaran directamente a Databricks. En donde se generará una capa bronce que nos permita el integrar todos estos datos. 
 
-Para este proyecto se planea combinar datos históricos (csv) con datos por streaming. Esta integración permite a los científicos tener una visión completa y actualizada de los experimentos facilitando el análisis.
+Streaming: Los datos en tiempo real son capturados desde Apache Kafka. Estos son almacenados temporalmente en la capa bronce como un flujo incremental.
 
-## Desglose del Pipeline: 
+**Capa de procesamiento (Batch y Streaming)**
+Batch: Los datos historicos son transformados y limpiados en la capa Silver. En donde se realizará el proceso de eliminación de duplicados y estandarización, etc. 
 
-**1.- Ingesta de datos:**
-Para la ingesta de datos se empleó Databricks que permitió manejar tanto datos históricos como datos en tiempo real de manera eficiente. 
-La implementación de datos en streaming se realiza mediante Apache Kafka, que captura datos generados en tiempo real por los experimentos.
+Streaming / Speed Layer: Los datos en tiempo real son procesados para poder alinearse con los datos historicos.  
 
-**2.- Transformación de datos:**
-Se usó Databricks para limpiar, transformar y preparar los datos tanto históricos como en tiempo real.
+**Capa de servicio (Batch y Streaming)**
+Los datos procesados en las capas de batch y streaming se combinana en vistas unificadas en la capa Gold, este permite realizar ciertas predicciones. 
 
-**3.- Carga y almacenamiento:**
-Se usa Delta Lake para almacenar datos procesados de manera eficiente y segura.
-
-**4.- Optimización de consultas:**
-Se empleó Databricks para optimizar las consultas y mejorar el rendimiento.
-
-**5.- Visualización de datos:**
-Se usó Power BI para observar los datos obtenidos y asegurar la existencia de posibles relaciones o patrones.
-
-**6.- Análisis y Aprendizaje Automático:**
-Azure ML se utiliza para realizar análisis avanzados y construir modelos de aprendizaje automático.
-
-
-
+Al ser un proyecto que por naturaleza tiende a crecer, se planea el emplear tecnologias como "Apache Kafka" para stremaing y Databricks / Spark para batch.  
+La resilencia y la tolerancia a fallos son otros dos factores claves que hacen de lambda una eficiente opcion para el proyecto. Su rendundancia inherente nos garantiza que sí una capa experimenta problemas, la otra siga funcionando. 
