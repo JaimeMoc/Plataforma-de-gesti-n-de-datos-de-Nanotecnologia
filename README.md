@@ -47,3 +47,14 @@ Al ser un proyecto que por naturaleza tiende a crecer, se planea el emplear tecn
 La resilencia y la tolerancia a fallos son otros dos factores claves que hacen de lambda una eficiente opcion para el proyecto. Su rendundancia inherente nos garantiza que sí una capa experimenta problemas, la otra siga funcionando. 
 
 ![Diagrama](https://github.com/JaimeMoc/Plataforma_de_gestion_de_datos_de_Nanotecnologia/blob/79c6c7fe847591c9a2a2fcad7f92900933099fba/Lambda_Architecture_Diagram.png)
+
+## Contribuciones
+
+Este proyecto está abierto a la colaboración y agradecemos las contribuciones de la comunidad. Si deseas participar, sigue las siguientes directrices:
+
+### ¿Cómo contribuir?
+
+1. **Forkea el repositorio**: Crea una copia del repositorio en tu cuenta de GitHub.
+2. **Clona el repositorio**: Descarga el repositorio a tu máquina local.
+   ```bash
+   git clone https://github.com/JaimeMoc/Plataforma_de_gestion_de_datos_de_Nanotecnologia.git
