@@ -43,3 +43,5 @@ Los datos procesados en las capas de batch y streaming se combinana en vistas un
 
 Al ser un proyecto que por naturaleza tiende a crecer, se planea el emplear tecnologias como "Apache Kafka" para stremaing y Databricks / Spark para batch.  
 La resilencia y la tolerancia a fallos son otros dos factores claves que hacen de lambda una eficiente opcion para el proyecto. Su rendundancia inherente nos garantiza que sí una capa experimenta problemas, la otra siga funcionando. 
+
+![Diagrama](https://github.com/JaimeMoc/Plataforma_de_gestion_de_datos_de_Nanotecnologia/blob/79c6c7fe847591c9a2a2fcad7f92900933099fba/Lambda_Architecture_Diagram.png)
