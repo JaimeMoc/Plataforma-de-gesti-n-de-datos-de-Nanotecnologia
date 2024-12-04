@@ -58,3 +58,10 @@ Este proyecto está abierto a la colaboración y agradecemos las contribuciones 
 2. **Clona el repositorio**: Descarga el repositorio a tu máquina local.
    ```bash
    git clone https://github.com/JaimeMoc/Plataforma_de_gestion_de_datos_de_Nanotecnologia.git
+
+**Contacto**: 
+Si tienes preguntas o necesitas orientación para comenzar, no dudes en abrir un Issue en el repositorio o enviar un correo a:
+
+Correo: suarezjaime2712@gmail.com
+Jaime Alberto Suarez Moctezuma.
+¡Gracias por contribuir al avance de este proyecto de datos generados en experimentos de nanotecnología!
