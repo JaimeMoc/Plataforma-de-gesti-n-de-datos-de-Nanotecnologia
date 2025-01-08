@@ -1,0 +1,2 @@
+ene 08, 2025 11:40:37 A.M. com.example.producers.CondicionesProducer main
+INFO: Mensaje enviado: {"id_experimento":945,"id_material":86,"temperatura":600,"presion_aplicada":2.5,"duracion_experimento":30,"fecha_experimento":"2024-09-21"}

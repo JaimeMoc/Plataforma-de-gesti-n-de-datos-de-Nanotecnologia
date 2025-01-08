@@ -1,8 +1,9 @@
 // Jaime Alberto Suarez Noctezuma. 
-// Importación de las líbrerias que vanos a necesitar.
+// Importación de las líbrerias que vamos a necesitar.
 package com.example.producers;
 
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -34,7 +35,7 @@ public class CondicionesProducer {
         // Configuración del productor de Kafka utilizando un archivo de propiedades
         Properties producerProps = new Properties();
        
-        try (FileInputStream fis = new FileInputStream("producer.properties")) {
+        try (FileInputStream fis = new FileInputStream("src/main/java/com/example/producer.properties")) {
             producerProps.load(fis); // Carga las configuraciones desde un archivo externo
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,29 +50,42 @@ public class CondicionesProducer {
         int[] duraciones = {30, 60, 120, 180};      // Duraciones de los experimentos en minutos
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        // Generación de mensajes para el tópico condiciones-topic
-        for (int i = 1; i <= 100; i++) {  // Generar 10 mensajes
-            int idExperimento = random.nextInt(1000) + 1;  // ID aleatorio del experimento
-            int idMaterial = random.nextInt(100) + 1;      // ID aleatorio del material
-            int temperatura = temperaturas[random.nextInt(temperaturas.length)]; // Temperatura aleatoria.
-            double presion = presiones[random.nextInt(presiones.length)]; // Presión aleatoria.
-            int duracion = duraciones[random.nextInt(duraciones.length)]; //Duración aleatoria.
-            String fechaExperimento = LocalDate.now().minusDays(random.nextInt(365)).format(formatter); // Fecha aleatoria en el ultimo año.
+        // Crear archivo CSV
+        try (FileWriter csvWriter = new FileWriter("datos_experimento_streaming.csv")) {
+            // Escribir encabezados
+            csvWriter.append("id_experimento,id_material,temperatura,presion_aplicada,duracion_experimento,fecha_experimento\n");
 
-            // Creación del mensaje JSON
-            String condicionesJson = String.format(
-                "{\"id_experimento\":%d,\"id_material\":%d,\"temperatura\":%d,\"presion_aplicada\":%.1f,\"duracion_experimento\":%d,\"fecha_experimento\":\"%s\"}",
-                idExperimento, idMaterial, temperatura, presion, duracion, fechaExperimento
-            );
+            // Generación de mensajes para el tópico condiciones-topic
+            for (int i = 1; i <= 100; i++) {  // Generar 100 mensajes
+                int idExperimento = random.nextInt(1000) + 1;  // ID aleatorio del experimento
+                int idMaterial = random.nextInt(100) + 1;      // ID aleatorio del material
+                int temperatura = temperaturas[random.nextInt(temperaturas.length)]; // Temperatura aleatoria.
+                double presion = presiones[random.nextInt(presiones.length)]; // Presión aleatoria.
+                int duracion = duraciones[random.nextInt(duraciones.length)]; //Duración aleatoria.
+                String fechaExperimento = LocalDate.now().minusDays(random.nextInt(365)).format(formatter); // Fecha aleatoria en el ultimo año.
 
-            // Enviar mensaje al tópico condiciones-topic
-            try {
-                producer.send(new ProducerRecord<>("condiciones-topic", Integer.toString(idExperimento), condicionesJson));
-                logger.info("Mensaje enviado: " + condicionesJson);
-            } catch (Exception e) {
-                logger.severe("Error enviando mensaje: " + e.getMessage());
+                // Creación del mensaje JSON
+                String condicionesJson = String.format(
+                    "{\"id_experimento\":%d,\"id_material\":%d,\"temperatura\":%d,\"presion_aplicada\":%.1f,\"duracion_experimento\":%d,\"fecha_experimento\":\"%s\"}",
+                    idExperimento, idMaterial, temperatura, presion, duracion, fechaExperimento
+                );
+
+                // Enviar mensaje al tópico condiciones-topic
+                try {
+                    producer.send(new ProducerRecord<>("condiciones-topic", Integer.toString(idExperimento), condicionesJson));
+                    logger.info("Mensaje enviado: " + condicionesJson);
+                } catch (Exception e) {
+                    logger.severe("Error enviando mensaje: " + e.getMessage());
+                }
+
+                // Escribir datos en el archivo CSV
+                csvWriter.append(String.format("%d,%d,%d,%.1f,%d,%s\n",
+                    idExperimento, idMaterial, temperatura, presion, duracion, fechaExperimento));
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
         // Cerramos el productor
         producer.close();
     }
