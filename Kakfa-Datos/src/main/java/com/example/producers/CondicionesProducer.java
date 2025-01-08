@@ -1,16 +1,19 @@
 // Jaime Alberto Suarez Noctezuma. 
 // Importación de las líbrerias que vanos a necesitar.
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
+package com.example.producers;
+
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Properties;
-import java.util.Random;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.logging.Logger;
+import java.util.Properties;
+import java.util.Random;
 import java.util.logging.FileHandler;
+import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
+
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerRecord;
 
 // Creación de la clase Condiciones Producer. 
 public class CondicionesProducer {

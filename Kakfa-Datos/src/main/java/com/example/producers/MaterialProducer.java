@@ -1,5 +1,7 @@
 // Jaime Alberto Suarez Moctezuma.
-// Importación de las librerías necesarias.
+// Importamos las librerías.
+package com.example.producers;
+
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import java.util.Properties;
@@ -24,9 +26,11 @@ public class MaterialProducer {
         // Inicialización de utilidades para generar datos aleatorios.
         Random random = new Random();
         // Datos simulados para materiales.
-        String[] nombresMateriales = {"Nanopartículas de óxido de samario", "Nanopartículas de plata", "Óxido de zinc"};
-        String[] composicionesQuimicas = {"(Sm2O3)", "(Ag)", "(ZnO)"};
-        String[] aplicaciones = {"Fotocatálisis", "Antimicrobiano", "Protectores solares"};
+        String[] prefijos = {"Nano", "Micro", "Ultra", "Super"};
+        String[] materiales = {"partículas", "tubos", "láminas", "esferas"};
+        String[] elementos = {"de óxido de samario", "de plata", "de zinc", "de carbono", "de oro", "de cobre", "de titanio", "de hierro", "de sílice"};
+        String[] composicionesQuimicas = {"(Sm2O3)", "(Ag)", "(ZnO)", "(C)", "(Au)", "(Cu)", "(Ti)", "(Fe)", "(SiO2)"};
+        String[] aplicaciones = {"Fotocatálisis", "Antimicrobiano", "Protectores solares", "Conductores", "Sensores"};
 
         // Formato de fecha para los datos generados.
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -36,7 +40,9 @@ public class MaterialProducer {
             for (int i = 1; i <= 10; i++) { // Generar 10 mensajes.
                 // Generación de datos aleatorios para un material.
                 int idMaterial = random.nextInt(1000) + 1;  // ID aleatorio del material.
-                String nombre = nombresMateriales[random.nextInt(nombresMateriales.length)];
+                String nombre = prefijos[random.nextInt(prefijos.length)] + " " +
+                                materiales[random.nextInt(materiales.length)] + " " +
+                                elementos[random.nextInt(elementos.length)];
                 String composicion = composicionesQuimicas[random.nextInt(composicionesQuimicas.length)];
                 String aplicacion = aplicaciones[random.nextInt(aplicaciones.length)];
                 String fechaCreacion = LocalDate.now().minusDays(random.nextInt(365)).format(formatter); // Fecha aleatoria
