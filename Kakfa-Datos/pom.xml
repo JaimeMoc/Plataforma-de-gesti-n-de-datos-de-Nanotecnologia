@@ -55,6 +55,13 @@
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.32</version>
         </dependency>
+
+        <!-- Dependencia para MySQL Connector -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.26</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -71,7 +78,7 @@
                             <goal>java</goal>
                         </goals>
                         <configuration>
-                            <mainClass>com.example.producers.NanotechStreamsApp</mainClass>
+                            <mainClass>com.example.NanotechStreamsApp</mainClass>
                         </configuration>
                     </execution>
                     <execution>

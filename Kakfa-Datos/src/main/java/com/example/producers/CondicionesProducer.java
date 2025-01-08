@@ -50,7 +50,7 @@ public class CondicionesProducer {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         // Generación de mensajes para el tópico condiciones-topic
-        for (int i = 1; i <= 10; i++) {  // Generar 10 mensajes
+        for (int i = 1; i <= 100; i++) {  // Generar 10 mensajes
             int idExperimento = random.nextInt(1000) + 1;  // ID aleatorio del experimento
             int idMaterial = random.nextInt(100) + 1;      // ID aleatorio del material
             int temperatura = temperaturas[random.nextInt(temperaturas.length)]; // Temperatura aleatoria.

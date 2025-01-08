@@ -2,27 +2,17 @@
 // Importamos las librerías.
 package com.example.producers;
 
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import java.util.Properties;
-import java.util.Random;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 // Creación de la clase Material Producer. 
-// Esta clase implementa un productor de Apache Kafka que genera datos simulados sobre materiales nanotecnológicos y los envía al tópico "material-topic".
+// Esta clase genera datos simulados sobre materiales nanotecnológicos y los guarda en un archivo CSV.
 public class MaterialProducer {
 
     public static void main(String[] args) {
-        // Configuración del productor de Kafka. 
-        Properties producerProps = new Properties();
-        producerProps.put("bootstrap.servers", "localhost:9092");
-        producerProps.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        producerProps.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-
-        // Creación del productor con las propiedades configuradas.
-        KafkaProducer<String, String> producer = new KafkaProducer<>(producerProps);
-
         // Inicialización de utilidades para generar datos aleatorios.
         Random random = new Random();
         // Datos simulados para materiales.
@@ -35,9 +25,15 @@ public class MaterialProducer {
         // Formato de fecha para los datos generados.
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        try {
-            // Generar mensajes para el tópico material-topic.
-            for (int i = 1; i <= 10; i++) { // Generar 10 mensajes.
+        // Nombre del archivo CSV.
+        String csvFile = "datos_streaming.csv";
+
+        try (FileWriter writer = new FileWriter(csvFile)) {
+            // Escribir la cabecera del archivo CSV.
+            writer.append("id_material,nombre,composicion_quimica,aplicacion,fecha_creacion\n");
+
+            // Generar datos para 100 materiales.
+            for (int i = 1; i <= 100; i++) {
                 // Generación de datos aleatorios para un material.
                 int idMaterial = random.nextInt(1000) + 1;  // ID aleatorio del material.
                 String nombre = prefijos[random.nextInt(prefijos.length)] + " " +
@@ -47,24 +43,14 @@ public class MaterialProducer {
                 String aplicacion = aplicaciones[random.nextInt(aplicaciones.length)];
                 String fechaCreacion = LocalDate.now().minusDays(random.nextInt(365)).format(formatter); // Fecha aleatoria
 
-                // Crear mensaje JSON.
-                String materialJson = String.format(
-                    "{\"id_material\":%d,\"nombre\":\"%s\",\"composicion_quimica\":\"%s\",\"aplicacion\":\"%s\",\"fecha_creacion\":\"%s\"}",
-                    idMaterial, nombre, composicion, aplicacion, fechaCreacion
-                );
-
-                // Enviar mensaje al tópico material-topic.
-                producer.send(new ProducerRecord<>("material-topic", Integer.toString(idMaterial), materialJson));
-                // Imprimir el mensaje enviado en la consola.
-                System.out.println("Mensaje enviado: " + materialJson);
+                // Escribir los datos en el archivo CSV.
+                writer.append(idMaterial + "," + nombre + "," + composicion + "," + aplicacion + "," + fechaCreacion + "\n");
             }
 
-        } catch (Exception e) {
-            // Manejo de excepciones durante la producción de mensajes.
+            System.out.println("Los datos se han guardado en '" + csvFile + "'.");
+
+        } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            // Cerrar el productor.
-            producer.close();
         }
     }
 }
