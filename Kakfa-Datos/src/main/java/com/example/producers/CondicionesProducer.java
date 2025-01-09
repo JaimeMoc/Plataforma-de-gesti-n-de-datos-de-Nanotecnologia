@@ -57,7 +57,7 @@ public class CondicionesProducer {
 
             // Generación de mensajes para el tópico condiciones-topic
             for (int i = 1; i <= 100; i++) {  // Generar 100 mensajes
-                int idExperimento = random.nextInt(1000) + 1;  // ID aleatorio del experimento
+                int idExperimento = random.nextInt(10) + 1;  // ID aleatorio del experimento
                 int idMaterial = random.nextInt(100) + 1;      // ID aleatorio del material
                 int temperatura = temperaturas[random.nextInt(temperaturas.length)]; // Temperatura aleatoria.
                 double presion = presiones[random.nextInt(presiones.length)]; // Presión aleatoria.
