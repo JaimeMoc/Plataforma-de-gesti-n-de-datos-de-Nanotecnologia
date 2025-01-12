@@ -1,16 +1,18 @@
-# Proyecto: Planeación de gestión de datos de nanotecnologia. 
+# NanoTech: Proyecto de Ingenieria de Datos. 
 
-## Contexto
+## Contexto.
+
 En el campo de la nanotecnología, los científicos realizan experimentos sobre materiales que operan a nano escala, estos generan datos relacionados con las propiedades físicas y químicas de los materiales estudiados.
 
 Estos datos son importantes para comprender y predecir cómo los materiales se comportan al aplicar ciertas fuerzas o condiciones, como cambios de temperatura o presión. Para poder usarlos y poder realizar predicciones precisas, es necesario el construir una estructura de datos que permita el acceso de esa información de forma optimizada.
 
 [![images.jpg](https://i.postimg.cc/1zY0ddD1/images.jpg)](https://postimg.cc/McVjMds9)
 
-## Objetivo
+## Objetivo.
+
 El objetivo principal de este proyecto es desarrollar una plataforma de gestión de datos que facilite a los científicos acceder y analizar estos datos, impulsando así nuevas predicciones sobre el comportamiento de los materiales bajo distintas condiciones.  
 
-## Datos
+## Datos.
 
 Para obtener los datos que se usaran en este proyecto se empleo la herramienta de Mockaroo. Generando 3 tablas (Materiales, propiedades, condiciones). 
 
@@ -24,31 +26,39 @@ La tercera tabla llamada “propiedades”, estará compuesta por id (“id_prop
 
 # Arquitectura de datos a emplear. 
 
-Para este proyecto se planea emplear la arquitectura lambda, ya que, se busca el emplear datos historicos (los datos de experimentos anteriores) así como, los datos en tiempo real, recolectados mediante sensores. 
+Para este proyecto de ingenieria de datos se planea emplear una arquitectura Lambda, esta nos permité el manejar mejor los datos historicos y los datos generados en tiempo real. 
 
-La arquitectura Lambda combina el procesamiento en Batch así como los datos en tiempo real. Para poder implementarlo, lo dividiremos en tres capas principales: 
+# Implementación. 
 
-**Capa de ingesta (Batch y Streaming)**
-Batch: Para la ingesta de datos historicos("materiales.csv", "condiciones.csv" y "propiedades.csv"), se cargaran directamente a Databricks. En donde se generará una capa bronce que nos permita el integrar todos estos datos. 
+Para poder implementar los datos históricos se definieron tres capas principales:
 
-Streaming: Los datos en tiempo real son capturados desde Apache Kafka. Estos son almacenados temporalmente en la capa bronce como un flujo incremental.
+## 1.- Capa de ingesta (Batch y Streaming): 
 
-**Capa de procesamiento (Batch y Streaming)**
-Batch: Los datos historicos son transformados y limpiados en la capa Silver. En donde se realizará el proceso de eliminación de duplicados y estandarización, etc. 
+**Batch:** Para la ingesta de datos de los datos históricos emplearemos de la herramienta Databricks que nos permitirá gestionar eficazmente todos estos datos. Databricks emplea a su vez Spark que nos permite aplicar ETL a los datos, código en Python, SQL, Scala, etc. 
 
-Streaming / Speed Layer: Los datos en tiempo real son procesados para poder alinearse con los datos historicos.  
+Para ello, se empleo de su versión “Community edition”, en el generamos tres carpetas principales (Bronce, Silver, y Gold) en donde se aplicaron las transformaciones.
 
-**Capa de servicio (Batch y Streaming)**
-Los datos procesados en las capas de batch y streaming se combinana en vistas unificadas en la capa Gold, este permite realizar ciertas predicciones. 
+**Streaming:** Para el proceso de ingesta de datos en tiempo real, se empleo la herramienta de Confluent Kafka, primero se instalo Docker, con el objetivo de poder procesar Kafka mediante una imagen de Docker. También se realizaron configuraciones específicas. 
 
-Al ser un proyecto que por naturaleza tiende a crecer, se planea el emplear tecnologias como "Apache Kafka" para stremaing y Databricks / Spark para batch.  
-La resilencia y la tolerancia a fallos son otros dos factores claves que hacen de lambda una eficiente opcion para el proyecto. Su rendundancia inherente nos garantiza que sí una capa experimenta problemas, la otra siga funcionando. 
+Para poder generar los mensajes se generaron tres archivos .java, además de generar archivos como “pom.xml”, “producer.properties”, y tener descargado “Maven” para poder manejar los jars. 
 
-![Diagrama](https://github.com/JaimeMoc/Plataforma_de_gestion_de_datos_de_Nanotecnologia/blob/79c6c7fe847591c9a2a2fcad7f92900933099fba/Lambda_Architecture_Diagram.png)
+## 2.- Capa de procesamiento:
 
-## Contribuciones
+**Batch:** Emplearemos la limpieza, transformación y almacenamiento en Delta Lake, mediante la implementación de una capa “Silver”. Esta organización (Bronce, Silver, Gold) es común dentro de la arquitectura Delta, aunque también nos servirá para obtener una mejor organización de nuestro código. 
 
-Este proyecto está abierto a la colaboración y agradecemos las contribuciones de la comunidad. Si deseas participar, sigue las siguientes directrices:
+**Streaming:** Dentro de esta parte buscamos el generar 100 mensajes que contenga datos de materiales (Nombre, id, compuesto químico, aplicación, ect), y datos de los experimentos (Elasticidad, Resistencia, etc). 
+Al terminar de generar los 100 mensajes, los guardamos en un archivo csv, este a su vez lo almacenaremos de igual forma en Azure para posteriormente emplearlo.
+
+## 3.- Visualización:
+Para visualizar los resultados emplearemos de la herramienta “Power BI” que nos ayudará a generar un dashboard que nos permita obtener una visión clara y concisa de los datos. 
+
+![Lambda](https://github.com/JaimeMoc/Plataforma_de_gestion_de_datos_de_Nanotecnologia/blob/d5a2ecd3fbd9490344280e0c77e9f9a261d60928/Lambda%20Arquitectura.png)
+
+## Visualización de los datos finales. 
+
+## Contribuciones.
+
+Este proyecto está abierto a la colaboración y agradezco las contribuciones que quiera realizar :) . Si deseas participar, sigue las siguientes directrices:
 
 ### ¿Cómo contribuir?
 
@@ -62,4 +72,3 @@ Si tienes preguntas o necesitas orientación para comenzar, no dudes en abrir un
 
 Correo: suarezjaime2712@gmail.com
 Jaime Alberto Suarez Moctezuma.
-¡Gracias por contribuir al avance de este proyecto de datos generados en experimentos de nanotecnología!
