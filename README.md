@@ -56,6 +56,8 @@ Para visualizar los resultados emplearemos de la herramienta “Power BI” que 
 
 ## Visualización de los datos finales. 
 
+![PowerBI](https://github.com/JaimeMoc/Plataforma_de_gestion_de_datos_de_Nanotecnologia/blob/551f66618fef4fb865bc920a5e8808b1372db31d/PowerBi.png)
+
 ## Contribuciones.
 
 Este proyecto está abierto a la colaboración y agradezco las contribuciones que quiera realizar :) . Si deseas participar, sigue las siguientes directrices:
