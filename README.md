@@ -26,8 +26,6 @@ La tercera tabla llamada “propiedades”, estará compuesta por id (“id_prop
 
 Para este proyecto se planea emplear la arquitectura lambda, ya que, se busca el emplear datos historicos (los datos de experimentos anteriores) así como, los datos en tiempo real, recolectados mediante sensores. 
 
-![Lambda](https://github.com/JaimeMoc/Plataforma_de_gestion_de_datos_de_Nanotecnologia/blob/145aead497750ba730debdb02be5aba8d7416a75/Lambda.drawio.png)
-
 La arquitectura Lambda combina el procesamiento en Batch así como los datos en tiempo real. Para poder implementarlo, lo dividiremos en tres capas principales: 
 
 **Capa de ingesta (Batch y Streaming)**
