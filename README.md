@@ -1,4 +1,4 @@
-# NanoTech: Proyecto de Ingenieria de Datos. 
+# NanoTech: Proyecto de Ingeniería de Datos. 
 
 ## Contexto.
 
@@ -14,19 +14,19 @@ El objetivo principal de este proyecto es desarrollar una plataforma de gestión
 
 ## Datos.
 
-Para obtener los datos que se usaran en este proyecto se empleo la herramienta de Mockaroo. Generando 3 tablas (Materiales, propiedades, condiciones). 
+Para obtener los datos que se usaran en este proyecto se empleó la herramienta de Mockaroo. Generando 3 tablas (Materiales, propiedades, condiciones). 
 
 La primera tabla llamada materiales incluirá campos como; un “id” (“id_material”) (integer) que será la llave principal, “nombre” (text), “composicion_quimica” (text), “aplicacion” (text), y “fecha_creacion” (date). 
 
 Tendremos una segunda tabla llamada “condiciones”, la cual estará compuesta de un “id” (“id_experimento”) que será la llave principal (integer), “id_material” que será la llave foránea con la tabla “material” (integer), “temperatura” (integer), “presión_aplicada” (numeric), “duración_experimento” (integer), “fecha_experimento” (date).   
 
-La tercera tabla llamada “propiedades”, estará compuesta por id (“id_propiedad”) que será la llave principal (integer), “id_material” que será la llave foránea (integer), “resistencia” (integer), “elasticidad” (integer), “conductividad_termica” (numeric), “densidad” (numeric), “diámetro_nanoparticulas” (integer), “espesor_capa” (integer), “capacidad_absorcion_luz” (integer).  
+La tercera tabla llamada “propiedades”, estará compuesta por "id" (“id_propiedad”) que será la llave principal (integer), “id_material” que será la llave foránea (integer), “resistencia” (integer), “elasticidad” (integer), “conductividad_termica” (numeric), “densidad” (numeric), “diámetro_nanoparticulas” (integer), “espesor_capa” (integer), “capacidad_absorcion_luz” (integer).  
 
 ![EBD](Data/EBD.png)
 
 # Arquitectura de datos a emplear. 
 
-Para este proyecto de ingenieria de datos se planea emplear una arquitectura Lambda, esta nos permité el manejar mejor los datos historicos y los datos generados en tiempo real. 
+Para este proyecto de ingeniería de datos se planea emplear una arquitectura Lambda, esta nos permite el manejar mejor los datos históricos y los datos generados en tiempo real. 
 
 # Implementación. 
 
@@ -36,9 +36,9 @@ Para poder implementar los datos históricos se definieron tres capas principale
 
 **Batch:** Para la ingesta de datos de los datos históricos emplearemos de la herramienta Databricks que nos permitirá gestionar eficazmente todos estos datos. Databricks emplea a su vez Spark que nos permite aplicar ETL a los datos, código en Python, SQL, Scala, etc. 
 
-Para ello, se empleo de su versión “Community edition”, en el generamos tres carpetas principales (Bronce, Silver, y Gold) en donde se aplicaron las transformaciones.
+Para ello, se empleó de su versión “Community edition”, en él generamos tres carpetas principales (Bronce, Silver, y Gold) en donde se aplicaron las transformaciones.
 
-**Streaming:** Para el proceso de ingesta de datos en tiempo real, se empleo la herramienta de Confluent Kafka, primero se instalo Docker, con el objetivo de poder procesar Kafka mediante una imagen de Docker. También se realizaron configuraciones específicas. 
+**Streaming:** Para el proceso de ingesta de datos en tiempo real, se empleó la herramienta de Confluent Kafka, primero se instaló Docker, con el objetivo de poder procesar Kafka mediante una imagen de Docker. También se realizaron configuraciones específicas. 
 
 Para poder generar los mensajes se generaron tres archivos .java, además de generar archivos como “pom.xml”, “producer.properties”, y tener descargado “Maven” para poder manejar los jars. 
 
